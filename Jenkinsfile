@@ -47,8 +47,12 @@ pipeline{
             }
         }
         stage("Deploy the docker container"){
-            echo "Deploying the app"
-            sh 'sudo docker run -itd -P prakashpragallapati/prakash:$BUILD_NUMBER'   
+            steps{
+                sript{
+                    echo "Deploying the app"
+                    sh 'sudo docker run -itd -P prakashpragallapati/prakash:$BUILD_NUMBER'   
+                }
+            }   
         }
     }
 }
