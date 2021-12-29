@@ -34,5 +34,21 @@ pipeline{
               }
              }
         }
+        stage("Build the docker image"){
+            steps{
+                script{
+                    echo "Building the dockerimage"
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'PSWD', usernameVariable: 'USER')]) {
+            sh 'sudo docker build -t prakashpragallapati/prakash:$BUILD_NUMBER .'
+            sh 'sudo docker login -u $USER -p $PSWD'
+            sh 'sudo docker push prakashpragallapati/prakash:$BUILD_NUMBER'
+}
+                }
+            }
+        }
+        stage("Deploy the docker container"){
+            echo "Deploying the app"
+            sh 'sudo docker run -itd -P prakashpragallapati/prakash:$BUILD_NUMBER'   
+        }
     }
 }
