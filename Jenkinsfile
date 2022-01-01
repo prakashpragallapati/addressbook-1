@@ -51,8 +51,8 @@ pipeline{
                 sript{
                     echo "Deploying the app"
                     sh 'sudo docker run -itd -P prakashpragallapati/prakash:$BUILD_NUMBER'   
-                }
-            }   
-        }
+                  }
+            }
     }
+}
 }
