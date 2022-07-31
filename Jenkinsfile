@@ -38,8 +38,8 @@ pipeline{
             steps{
                 script{
                     echo "Building the dockerimage"
-                    sh 'sudo yum install docker -y'
-                    sh 'sudo systemctl start docker'
+                    sh 'yum install docker -y'
+                    sh 'systemctl start docker'
                     withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'PSWD', usernameVariable: 'USER')]) {
             sh 'sudo docker build -t prakashpragallapati/prakash:$BUILD_NUMBER .'
             sh 'sudo docker login -u $USER -p $PSWD'
